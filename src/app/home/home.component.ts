@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Animal } from 'app/models/animal';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { PushNotificationsService } from 'ng-push-ivy';
 @Component({
 	selector: 'app-home',
 	templateUrl: './home.component.html',
@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
 	public ornithorynque: Animal;
 	public kangourou: Animal;
 	public paresseux: Animal;
-	constructor(private _snackBar: MatSnackBar) {
+	constructor(private _snackBar: MatSnackBar, private _pushNotifications: PushNotificationsService) {
 		this.animals.push(
 			(this.ornithorynque = new Animal(
 				'Monotrèmes',
@@ -34,11 +34,13 @@ export class HomeComponent implements OnInit {
 
 	/* Fonction de suppression d'animal (l'enleve du tableau) */
 	deleteAnimal(animal: Animal): void {
+		Notification.requestPermission();
 		// console.log('deleteAnimalClick() received, this.animal.id : ', animal);
 		const animalIndex = this.animals.indexOf(animal);
 		const animalNom = animal.getNom();
 		if (animalIndex !== -1) {
 			this.animals.splice(animalIndex, 1);
+			// this.sendPushNotification({ header: 'Suppression réussie', body: animalNom });
 			this.openSnackBar({ message: `${animalNom} a été supprimé`, action: 'x' });
 		} else console.log('(Home.deleteAnimal(animal:Animal) > splice didnt succeed : Throw error here');
 	}
@@ -49,6 +51,14 @@ export class HomeComponent implements OnInit {
 			duration: 3000,
 			panelClass: ['mat-snackbar-bottom'],
 		});
+	}
+
+	/* Notif push native */
+	async sendPushNotification({ header, body }: { header: string; body: string }): Promise<void> {
+		this._pushNotifications.create(header, { body: body }).subscribe(
+			(res) => console.log(res),
+			(err) => console.log(err)
+		);
 	}
 	ngOnInit(): void {}
 }

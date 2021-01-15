@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AnimalComponent } from './animal/animal.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PushNotificationsModule } from 'ng-push-ivy';
 
 @NgModule({
 	imports: [
@@ -22,6 +23,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 		HttpClientModule,
 		AppRoutingModule,
 		MatSnackBarModule,
+		PushNotificationsModule,
 	],
 	declarations: [AppComponent, LayoutComponent, HomeComponent, NavbarComponent, AnimalComponent],
 	providers: [],

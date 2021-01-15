@@ -36,6 +36,7 @@
     "@angular-devkit/build-angular": "0.1100.4",
     "@angular/cli": "11.0.4",
     "@angular/compiler-cli": "11.0.4",
+    "ng-push-ivy": "^1.0.7",
     "ts-node": "8.6.2",
     "typescript": "4.0.5"
   }
