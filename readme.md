@@ -6,7 +6,7 @@
 
 [x]. Suppression d'un animal
 
-[ ]. Création d'un animal : création d'un web component qui présente le formulaire
+[x]. Création d'un animal : création d'un web component qui présente le formulaire
 
 [ ]. Modification d'un animal
 
