@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Animal } from 'app/models/animal';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
 	public ornithorynque: Animal;
 	public kangourou: Animal;
 	public paresseux: Animal;
+
 	constructor(private _snackBar: MatSnackBar) {
 		this.animals.push(
 			(this.ornithorynque = new Animal(
@@ -50,5 +51,10 @@ export class HomeComponent implements OnInit {
 			panelClass: ['mat-snackbar-bottom'],
 		});
 	}
+
+	onFormSubmit(animal: Animal): void {
+		this.animals.push(animal);
+	}
+
 	ngOnInit(): void {}
 }

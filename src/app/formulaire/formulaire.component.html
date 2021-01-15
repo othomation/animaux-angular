@@ -1,0 +1,39 @@
+<form (ngSubmit)="onSubmit()"
+	  #animalForm="ngForm">
+	<div class="form-group">
+		<label for="nom">Nom</label>
+		<input type="text"
+			   class="form-control"
+			   id="nom"
+			   placeholder="Chien"
+			   [(ngModel)]="nom"
+			   name="nom"
+			   required />
+	</div>
+	<div class="form-group">
+		<label for="ordre">Ordre</label>
+		<select class="form-control"
+				id="ordre"
+				[(ngModel)]="ordre"
+				name="ordre"
+				required>
+			<option *ngFor="let ordre of listeDesOrdres">{{ ordre }}</option>
+		</select>
+	</div>
+
+	<div class="form-group">
+		<label for="imageUrl">Url d'image</label>
+		<input class="form-control"
+			   type="text"
+			   id="imageUrl"
+			   [(ngModel)]="imageUrl"
+			   name="imageUrl" />
+	</div>
+	<div class="row">
+		<div class="col-md-1">
+			<button class="btn btn-success"
+					type="submit"
+					[disabled]="!animalForm.form.valid">Ajouter</button>
+		</div>
+	</div>
+</form>

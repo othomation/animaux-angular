@@ -8,7 +8,11 @@ export class Animal {
 	// private createdAt: string;
 	// private updatedAt: string;
 
-	constructor(ordre: Ordre, nom: string, imageUrl: string) {
+	constructor(
+		ordre: Ordre = 'Carnivores',
+		nom: string = 'Chien',
+		imageUrl: string = 'https://i.imgur.com/SHjwhGs.jpg'
+	) {
 		this.ordre = ordre;
 		this.nom = nom;
 		this.imageUrl = imageUrl;
@@ -18,7 +22,7 @@ export class Animal {
 	getOrdre(): Ordre {
 		return this.ordre;
 	}
-	
+
 	getNom() {
 		return this.nom;
 	}
@@ -30,7 +34,7 @@ export class Animal {
 	setOrdre(nouvelOrdre: Ordre) {
 		this.ordre = nouvelOrdre;
 	}
-	
+
 	setNom(nouveauNom: string) {
 		this.nom = nouveauNom;
 	}
