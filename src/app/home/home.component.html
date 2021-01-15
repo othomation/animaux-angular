@@ -1,0 +1,7 @@
+<div class="container-fluid">
+  <div class="row">
+    <app-animal (deleteAnimalEvent)="deleteAnimal(animal)"
+                *ngFor="let animal of animals"
+                [animal]="animal"></app-animal>
+  </div>
+</div>

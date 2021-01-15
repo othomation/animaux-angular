@@ -1,0 +1,28 @@
+<div class="card m-2"
+	 style="width: 18rem;">
+	<img class="card-img-top"
+		 src="{{ animal.getImageUrl() }}"
+		 alt="{{animal.getNom()}}">
+	<div class="card-body">
+		<h5 class="card-title">{{ animal.getNom() }} </h5>
+		<p class="card-text">{{ animal.getOrdre() }}</p>
+		<ul class="list-inline m-0 pull-right">
+			<li class="list-inline-item">
+				<button (click)="animal.setNom(animal.getNom() + ' prout')" 
+				class="btn btn-success btn-sm rounded-0"
+						type="button"
+						data-toggle="tooltip"
+						data-placement="top"
+						title="Edit"><i class="fa fa-edit"></i></button>
+			</li>
+			<li class="list-inline-item">
+				<button (click)="deleteAnimalClick()"
+						class="btn btn-danger btn-sm rounded-0"
+						type="button"
+						data-toggle="tooltip"
+						data-placement="top"
+						title="Delete"><i class="fa fa-trash"></i></button>
+			</li>
+		</ul>
+	</div>
+</div>
