@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, isDevMode, OnInit, Output } from '@angular/core';
 import { Animal } from 'app/models/animal';
 @Component({
 	selector: 'app-animal',
@@ -8,16 +8,20 @@ import { Animal } from 'app/models/animal';
 export class AnimalComponent implements OnInit {
 	@Input() animal: Animal;
 	@Output() private deleteAnimalEvent: EventEmitter<Animal>;
-
+	@Output() private editAnimalEvent: EventEmitter<Animal>;
 	constructor() {
 		this.deleteAnimalEvent = new EventEmitter<Animal>();
+		this.editAnimalEvent = new EventEmitter<Animal>();
 	}
 
 	ngOnInit(): void {}
 
-	/* Envoit l'evenement de suppression au clic du boutton supprimre */
+	/* Envoit l'evenement de suppression au clic du boutton supprimer */
 	deleteAnimalClick(): void {
-		// console.log('deleteAnimalClick() emitted, this.animal.id : ', this.animal);
 		this.deleteAnimalEvent.emit();
+	}
+	/* Envoie l'evenement de l'édition au clic du boutton editer */
+	editMode(animal: Animal): void {
+		this.editAnimalEvent.emit(animal);
 	}
 }

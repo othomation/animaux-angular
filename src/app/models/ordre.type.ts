@@ -1,5 +1,5 @@
 export type Ordre =
-	| 'Monotrèmes'
+	 'Monotrèmes'
 	| 'Marsupiaux'
 	| 'Xénarthres'
 	| 'Pholidotes'

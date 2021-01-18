@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Ordre } from 'app/models/ordre.type';
 import { Animal } from '../models/animal';
 
@@ -8,10 +9,15 @@ import { Animal } from '../models/animal';
 	styleUrls: ['./formulaire.component.scss'],
 })
 export class FormulaireComponent implements OnInit {
-	@Output() formSubmitEvent: EventEmitter<Animal>;
-
+	@Output() formSubmitEvent: EventEmitter<Object>;
+	@Input() populateTheForm: EventEmitter<Animal>;
+	public isEditMode: Boolean = false;
+	public original: Animal;
+	@Output() enableEditMode: EventEmitter<Boolean>;
 	constructor() {
-		this.formSubmitEvent = new EventEmitter<Animal>();
+		// this.isEditMode = false;
+		this.formSubmitEvent = new EventEmitter<Object>();
+		this.enableEditMode = new EventEmitter<Boolean>();
 	}
 	public listeDesOrdres = [
 		'Monotrèmes',
@@ -28,10 +34,32 @@ export class FormulaireComponent implements OnInit {
 	public ordre: Ordre;
 	public imageUrl: string;
 
-	onSubmit(): void {
-		this.animal = new Animal(this.ordre, this.nom, this.imageUrl);
-		this.formSubmitEvent.emit(this.animal);
+	onSubmit(animalForm: NgForm): void {
+		let animalSaisi = new Animal(this.ordre, this.nom, this.imageUrl);
+		this.formSubmitEvent.emit({ original: this.original, animalSaisi });
+		this.resetForm(animalForm);
+		this.cancelEditMode(animalForm);
 	}
 
-	ngOnInit(): void {}
+	populateForm(animal: Animal): void {
+		this.nom = animal.getNom();
+		this.ordre = animal.getOrdre();
+		this.imageUrl = animal.getImageUrl();
+		this.original = new Animal(this.ordre, this.nom, this.imageUrl);
+	}
+	resetForm(animalForm: NgForm): void {
+		animalForm.resetForm();
+	}
+
+	cancelEditMode(animalForm: NgForm): void {
+		this.isEditMode = false;
+		animalForm.resetForm();
+	}
+	ngOnInit(): void {
+		this.populateTheForm.subscribe((animal) => {
+			console.log(animal, ' will populate the form now');
+			this.populateForm(animal);
+			this.isEditMode = true;
+		});
+	}
 }

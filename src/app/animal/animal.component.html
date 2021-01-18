@@ -8,7 +8,7 @@
 		<p class="card-text">{{ animal.getOrdre() }}</p>
 		<ul class="list-inline m-0 pull-right">
 			<li class="list-inline-item">
-				<button (click)="animal.setNom(animal.getNom() + ' prout')"
+				<button (click)="editMode(animal)"
 						class="btn btn-success btn-sm rounded-0"
 						type="button"
 						data-toggle="tooltip"

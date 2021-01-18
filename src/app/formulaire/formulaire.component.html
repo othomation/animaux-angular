@@ -1,5 +1,6 @@
-<form (ngSubmit)="onSubmit()"
-	  #animalForm="ngForm">
+<form (ngSubmit)="onSubmit(animalForm)"
+	  #animalForm="ngForm"
+	  (populateTheForm)="populateForm($event)">
 	<div class="form-group">
 		<label for="nom">Nom</label>
 		<input type="text"
@@ -33,7 +34,20 @@
 		<div class="col-md-1">
 			<button class="btn btn-success"
 					type="submit"
-					[disabled]="!animalForm.form.valid">Ajouter</button>
+					[disabled]="!animalForm.form.valid">
+				<ng-container *ngIf="isEditMode">Modifier</ng-container>
+				<ng-container *ngIf="!isEditMode"> Ajouter </ng-container>
+			</button>
+		</div>
+		<div class="col-md-1">
+			<button class="btn btn-danger"
+					type="button"
+					*ngIf="!isEditMode && animalForm.form.dirty"
+					(click)="resetForm(animalForm)">Reset</button>
+		</div>
+		<div class="col-md-1"> <button class="btn btn-warning"
+					*ngIf="isEditMode"
+					(click)="cancelEditMode(animalForm)">Cancel edit</button>
 		</div>
 	</div>
 </form>

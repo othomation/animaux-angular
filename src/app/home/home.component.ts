@@ -13,7 +13,10 @@ export class HomeComponent implements OnInit {
 	public kangourou: Animal;
 	public paresseux: Animal;
 
+	@Output() populateTheForm: EventEmitter<Animal>;
+	public isEditMode: Boolean = false;
 	constructor(private _snackBar: MatSnackBar) {
+		this.populateTheForm = new EventEmitter<Animal>();
 		this.animals.push(
 			(this.ornithorynque = new Animal(
 				'Monotrèmes',
@@ -35,7 +38,6 @@ export class HomeComponent implements OnInit {
 
 	/* Fonction de suppression d'animal (l'enleve du tableau) */
 	deleteAnimal(animal: Animal): void {
-		// console.log('deleteAnimalClick() received, this.animal.id : ', animal);
 		const animalIndex = this.animals.indexOf(animal);
 		const animalNom = animal.getNom();
 		if (animalIndex !== -1) {
@@ -52,8 +54,22 @@ export class HomeComponent implements OnInit {
 		});
 	}
 
-	onFormSubmit(animal: Animal): void {
-		this.animals.push(animal);
+	onFormSubmit(animal): void {
+		if (!this.isEditMode) this.animals.push(animal.animalSaisi);
+		else {
+			let animalToEdit = this.animals.find((animalToFind) => animal.original.getNom() == animalToFind.getNom());
+			if (animalToEdit) {
+				animalToEdit.setNom(animal.animalSaisi.getNom());
+				animalToEdit.setOrdre(animal.animalSaisi.getOrdre());
+				animalToEdit.setImageUrl(animal.animalSaisi.getImageUrl());
+			}
+			this.isEditMode = false;
+		}
+	}
+
+	setEditMode(animal: Animal): void {
+		this.isEditMode = true;
+		this.populateTheForm.emit(animal);
 	}
 
 	ngOnInit(): void {}
