@@ -6,6 +6,7 @@
                 [animal]="animal"></app-animal>
   </div>
   <div class="row center-row">
-    <app-formulaire (formSubmitEvent)="onFormSubmit($event)"></app-formulaire>
+    <app-formulaire (formSubmitEvent)="onFormSubmit($event)"
+                    (populateTheForm)="populateTheForm"></app-formulaire>
   </div>
 </div>
